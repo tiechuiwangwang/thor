@@ -75,3 +75,5 @@ dist/*
 .DS_Store
 
 .vault_pass.txt
+
+*.db

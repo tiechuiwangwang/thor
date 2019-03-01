@@ -6,6 +6,7 @@ from thor.exts import db
 
 
 blueprints = [
+    'thor.modules.album.api:bp',
     'thor.modules.index.api:bp',
 ]
 

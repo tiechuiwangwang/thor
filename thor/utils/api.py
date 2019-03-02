@@ -31,13 +31,31 @@ def response(msg, result=None, error=None):
 
 HTTP_OK = 200
 HTTP_BAD_REQUEST = 400
+HTTP_UNAUTHORIZED = 401
 HTTP_FORBBIDEN = 403
+HTTP_NOT_FOUND = 404
 
 ok = BusinessResponse(HTTP_OK, 0)
 
-err_params_required = BusinessResponse(HTTP_BAD_REQUEST, 1, 'Params required')
-err_params_error = BusinessResponse(HTTP_BAD_REQUEST, 2, 'Params Error')
+err_unauthorized_required = \
+    BusinessResponse(HTTP_UNAUTHORIZED, 1, 'Login required')
 
-# 1xxx for User Module
+err_params_required = BusinessResponse(HTTP_BAD_REQUEST, 2, 'Params required')
+
+err_params_error = BusinessResponse(HTTP_BAD_REQUEST, 3, 'Params Error')
+
+err_unkown = BusinessResponse(HTTP_BAD_REQUEST, 9, 'Unkown Error')
+
+# 1xxx for User module
 err_invalid_username_or_password = \
     BusinessResponse(HTTP_BAD_REQUEST, 1001, 'Invalid Username or Password')
+err_user_is_inactive = \
+    BusinessResponse(HTTP_BAD_REQUEST, 1002, 'Inactive User')
+err_username_exists = \
+    BusinessResponse(HTTP_BAD_REQUEST, 1003, 'Username Exists')
+
+# 2xxx for Album module
+err_photo_not_found = \
+    BusinessResponse(HTTP_NOT_FOUND, 2001, 'Photo Not Found')
+err_photo_already_liked = \
+    BusinessResponse(HTTP_BAD_REQUEST, 2002, 'You Have Liked the Photo')

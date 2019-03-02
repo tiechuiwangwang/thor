@@ -16,7 +16,7 @@ bp = create_api_blueprint('user', __name__)
 @bp.route('/user/signin', methods=['POST'])
 def signin_user():
     if not current_user.is_anonymous:
-        return api.ok(marshal(current_user, schema.USER_FIELDS))
+        return api.ok(marshal(current_user, schema.USER))
 
     if request.json is None:
         return api.err_params_required()
@@ -35,15 +35,18 @@ def signin_user():
     if user is None:
         return api.err_invalid_username_or_password()
 
+    if not user.is_active():
+        return api.err_user_is_inactive()
+
     login_user(user, force=True, remember=True)
 
-    return api.ok(marshal(current_user, schema.USER_FIELDS))
+    return api.ok(marshal(current_user, schema.USER))
 
 
 @bp.route('/user/signup', methods=['POST'])
 def signup_user():
     if not current_user.is_anonymous:
-        return api.ok(marshal(current_user, schema.USER_FIELDS))
+        return api.ok(marshal(current_user, schema.USER))
 
     if request.json is None:
         return api.err_params_required()
@@ -58,9 +61,13 @@ def signup_user():
     username, nickname, password = \
         data['username'], data['nickname'], data['password']
 
+    found_user = User.get_by_username(username)
+    if found_user is not None:
+        return api.err_username_exists()
+
     user = User(username=username, nickname=nickname)
     user.update_password(password)
 
     user.save()
 
-    return api.ok(marshal(user, schema.USER_FIELDS))
+    return api.ok()

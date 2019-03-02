@@ -17,6 +17,7 @@ class User(Base):
     username = db.Column(db.String(64))
     password = db.Column(db.String(128))
     nickname = db.Column(db.String(64), nullable=True)
+    email = db.Column(db.String(128), nullable=True)
     avatar = db.Column(db.String(256))
     status = db.Column(db.Integer, default=STATUS_PENDING)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)

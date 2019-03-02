@@ -1,1 +1,4 @@
-from ._db import db    # noqa
+# flake8: noqa
+
+from ._db import db
+from ._login import login_manager

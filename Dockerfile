@@ -13,8 +13,6 @@ WORKDIR $WORKSPACE
 
 RUN apk add --no-cache python3-dev mariadb-dev build-base 
 RUN pip3 install -i https://pypi.douban.com/simple gunicorn
-RUN apk del python3-dev mariadb-dev build-base
-RUN apk add mariadb-client-libs
 
 COPY ./entrypoint.sh /entrypoint.sh
 COPY ./requirements.txt /tmp/requirements.txt
@@ -22,5 +20,7 @@ COPY ./thor $WORKSPACE/thor
 COPY ./deploy $WORKSPACE/deploy
 RUN chmod +x /entrypoint.sh
 RUN pip3 install -i https://pypi.douban.com/simple -r /tmp/requirements.txt
+RUN apk del python3-dev mariadb-dev build-base
+# RUN apk add mariadb-client-libs
 
 ENTRYPOINT "/entrypoint.sh"

@@ -21,6 +21,5 @@ COPY ./deploy $WORKSPACE/deploy
 RUN chmod +x /entrypoint.sh
 RUN pip3 install -i https://pypi.douban.com/simple -r /tmp/requirements.txt
 RUN apk del python3-dev mariadb-dev build-base
-# RUN apk add mariadb-client-libs
 
 ENTRYPOINT "/entrypoint.sh"

@@ -12,7 +12,7 @@ RUN mkdir $WORKSPACE
 WORKDIR $WORKSPACE
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories;\ 
-    apk add --no-cache python3-dev mariadb-dev build-base 
+    apk add --no-cache python3-dev mariadb-dev build-base mariadb-connector-c
 RUN pip3 install -i https://pypi.douban.com/simple gunicorn
 
 COPY ./entrypoint.sh /entrypoint.sh

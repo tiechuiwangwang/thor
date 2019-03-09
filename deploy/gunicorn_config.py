@@ -1,4 +1,4 @@
-from envcfg.raw import thor as config
+from envcfg.json import thor as config
 
 bind = "{}:{}".format(config.HOST, config.PORT)
 workers = int(config.GUNICORN_WORKERS)

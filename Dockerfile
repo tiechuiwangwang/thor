@@ -11,7 +11,8 @@ ENV THOR_GUNICORN_WORKERS="1"
 RUN mkdir $WORKSPACE
 WORKDIR $WORKSPACE
 
-RUN apk add --no-cache python3-dev mariadb-dev build-base 
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories;\ 
+    apk add --no-cache python3-dev mariadb-dev build-base 
 RUN pip3 install -i https://pypi.douban.com/simple gunicorn
 
 COPY ./entrypoint.sh /entrypoint.sh
